@@ -1,10 +1,11 @@
 {
-  "expo": {
-    "scheme": "acme",
-    "plugins": [
-      "expo-router"
-    ],
-    "name": "moodbooster",
-    "slug": "moodbooster"
-  }
+	"expo": {
+		"scheme": "acme",
+		"experimental": {
+			"newArchEnabled": true
+		},
+		"plugins": ["expo-router"],
+		"name": "moodbooster",
+		"slug": "moodbooster"
+	}
 }
