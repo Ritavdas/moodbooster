@@ -1,13 +1,17 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { Button, Text } from 'react-native-paper';
 import { router } from 'expo-router';
 import AnimatedBackground from '../components/AnimatedBackground';
 import { BASE_COLORS } from '../constants/colors';
 
 export default function LandingScreen() {
+  const handleWriteButtonPress = () => {
+    router.push('text');
+  };
+
   const handleTalkButtonPress = () => {
-    // Navigate to the recording screen
-    router.push('/record');
+    router.push('record');
   };
 
   return (
@@ -15,15 +19,27 @@ export default function LandingScreen() {
       <AnimatedBackground animation="clouds" />
       
       <View style={styles.content}>
-        <Text style={styles.title}>How are you feeling today?</Text>
+        <Text variant="headlineLarge" style={styles.title}>What's on your mind?</Text>
         
-        <TouchableOpacity 
+        <Button
+          mode="contained"
+          onPress={handleWriteButtonPress}
           style={styles.button}
-          onPress={handleTalkButtonPress}
-          activeOpacity={0.8}
+          icon="pencil"
+          contentStyle={styles.buttonContent}
         >
-          <Text style={styles.buttonText}>Talk to Me 🎤</Text>
-        </TouchableOpacity>
+          Write to AI
+        </Button>
+
+        <Button
+          mode="contained"
+          onPress={handleTalkButtonPress}
+          style={styles.button}
+          icon="microphone"
+          contentStyle={styles.buttonContent}
+        >
+          Talk to AI
+        </Button>
       </View>
     </SafeAreaView>
   );
@@ -39,32 +55,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    gap: 20,
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
     color: BASE_COLORS.text,
     textAlign: 'center',
     marginBottom: 40,
   },
   button: {
-    backgroundColor: BASE_COLORS.primary,
-    paddingVertical: 16,
-    paddingHorizontal: 32,
+    width: '80%',
+    marginVertical: 8,
     borderRadius: 30,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
+  buttonContent: {
+    paddingVertical: 8,
   },
 });

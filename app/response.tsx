@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { Button, Text, Card, Surface } from 'react-native-paper';
 import { router, useLocalSearchParams } from 'expo-router';
 import AnimatedBackground from '../components/AnimatedBackground';
 import { BASE_COLORS } from '../constants/colors';
@@ -35,26 +36,39 @@ export default function ResponseScreen() {
       <AnimatedBackground animation="clouds" mood={mood} />
       
       <View style={styles.content}>
-        <View style={styles.card}>
-          <Text style={styles.moodTitle}>{getMoodDescription(mood)}</Text>
-          
-          <Text style={styles.message}>{message}</Text>
-          
-          {transcription && (
-            <View style={styles.transcriptionContainer}>
-              <Text style={styles.transcriptionLabel}>You said:</Text>
-              <Text style={styles.transcription}>{transcription}</Text>
-            </View>
-          )}
-        </View>
+        <Surface style={styles.cardContainer} elevation={1}>
+          <Card style={styles.card}>
+            <Card.Content>
+              <Text variant="headlineSmall" style={styles.moodTitle}>
+                {getMoodDescription(mood)}
+              </Text>
+              
+              <Text variant="bodyLarge" style={styles.message}>
+                {message}
+              </Text>
+              
+              {transcription && (
+                <View style={styles.transcriptionContainer}>
+                  <Text variant="labelLarge" style={styles.transcriptionLabel}>
+                    You said:
+                  </Text>
+                  <Text variant="bodyMedium" style={styles.transcription}>
+                    {transcription}
+                  </Text>
+                </View>
+              )}
+            </Card.Content>
+          </Card>
+        </Surface>
         
-        <TouchableOpacity 
-          style={styles.button}
+        <Button
+          mode="contained"
           onPress={handleTalkAgainPress}
-          activeOpacity={0.8}
+          style={styles.button}
+          icon="chat"
         >
-          <Text style={styles.buttonText}>Talk Again!</Text>
-        </TouchableOpacity>
+          Talk Again!
+        </Button>
       </View>
     </SafeAreaView>
   );
@@ -71,32 +85,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
-  card: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    borderRadius: 20,
-    padding: 24,
+  cardContainer: {
     width: '100%',
     maxWidth: 400,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    borderRadius: 20,
+    overflow: 'hidden',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  },
+  card: {
+    backgroundColor: 'transparent',
   },
   moodTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
     color: BASE_COLORS.text,
     marginBottom: 16,
     textAlign: 'center',
   },
   message: {
-    fontSize: 18,
     color: BASE_COLORS.text,
-    lineHeight: 26,
     marginBottom: 24,
     textAlign: 'center',
   },
@@ -106,35 +111,16 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
   transcriptionLabel: {
-    fontSize: 14,
-    fontWeight: 'bold',
     color: BASE_COLORS.text,
     marginBottom: 8,
   },
   transcription: {
-    fontSize: 14,
     color: BASE_COLORS.text,
     fontStyle: 'italic',
   },
   button: {
-    backgroundColor: BASE_COLORS.primary,
-    paddingVertical: 16,
-    paddingHorizontal: 32,
-    borderRadius: 30,
     marginTop: 30,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    borderRadius: 30,
+    width: '80%',
   },
 });

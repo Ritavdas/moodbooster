@@ -1,12 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-	View,
-	Text,
-	StyleSheet,
-	SafeAreaView,
-	TouchableOpacity,
-	ActivityIndicator,
-} from "react-native";
+import { View, StyleSheet, SafeAreaView } from "react-native";
+import { Button, Text, ActivityIndicator } from "react-native-paper";
 import { router } from "expo-router";
 import LottieView from "lottie-react-native";
 import AnimatedBackground from "../components/AnimatedBackground";
@@ -112,8 +106,8 @@ export default function RecordScreen() {
 			case RecordingState.RECORDING:
 				return (
 					<>
-						<Text style={styles.title}>I'm listening...</Text>
-						<Text style={styles.subtitle}>
+						<Text variant="headlineMedium" style={styles.title}>I'm listening...</Text>
+						<Text variant="bodyLarge" style={styles.subtitle}>
 							Speak about how you're feeling
 						</Text>
 
@@ -127,25 +121,26 @@ export default function RecordScreen() {
 							/>
 						</View>
 
-						<TouchableOpacity
-							style={[styles.button, styles.stopButton]}
+						<Button
+							mode="contained"
 							onPress={handleRecordButtonPress}
-							activeOpacity={0.8}
+							style={[styles.button, styles.stopButton]}
+							icon="stop"
 						>
-							<Text style={styles.buttonText}>Stop Recording</Text>
-						</TouchableOpacity>
+							Stop Recording
+						</Button>
 					</>
 				);
 
 			case RecordingState.PROCESSING:
 				return (
 					<>
-						<Text style={styles.title}>Processing...</Text>
-						<Text style={styles.subtitle}>Analyzing your feelings</Text>
+						<Text variant="headlineMedium" style={styles.title}>Processing...</Text>
+						<Text variant="bodyLarge" style={styles.subtitle}>Analyzing your feelings</Text>
 
 						<ActivityIndicator
+							animating={true}
 							size="large"
-							color={BASE_COLORS.primary}
 							style={styles.loader}
 						/>
 					</>
@@ -155,30 +150,31 @@ export default function RecordScreen() {
 			default:
 				return (
 					<>
-						<Text style={styles.title}>Tell me how you feel</Text>
-						<Text style={styles.subtitle}>
+						<Text variant="headlineMedium" style={styles.title}>Tell me how you feel</Text>
+						<Text variant="bodyLarge" style={styles.subtitle}>
 							Tap the button and start speaking
 						</Text>
 
 						{errorMessage && (
-							<Text style={styles.errorText}>{errorMessage}</Text>
+							<Text variant="bodyMedium" style={styles.errorText}>{errorMessage}</Text>
 						)}
 
-						<TouchableOpacity
-							style={styles.button}
+						<Button
+							mode="contained"
 							onPress={handleRecordButtonPress}
-							activeOpacity={0.8}
+							style={styles.button}
+							icon="microphone"
 						>
-							<Text style={styles.buttonText}>Start Recording 🎤</Text>
-						</TouchableOpacity>
+							Start Recording
+						</Button>
 
-						<TouchableOpacity
-							style={styles.backButton}
+						<Button
+							mode="text"
 							onPress={() => router.back()}
-							activeOpacity={0.8}
+							style={styles.backButton}
 						>
-							<Text style={styles.backButtonText}>Go Back</Text>
-						</TouchableOpacity>
+							Go Back
+						</Button>
 					</>
 				);
 		}
@@ -203,52 +199,27 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		padding: 20,
+		gap: 20,
 	},
 	title: {
-		fontSize: 28,
-		fontWeight: "bold",
 		color: BASE_COLORS.text,
 		textAlign: "center",
 		marginBottom: 10,
 	},
 	subtitle: {
-		fontSize: 16,
 		color: BASE_COLORS.text,
 		textAlign: "center",
 		marginBottom: 40,
 	},
 	button: {
-		backgroundColor: BASE_COLORS.primary,
-		paddingVertical: 16,
-		paddingHorizontal: 32,
+		width: "80%",
 		borderRadius: 30,
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 2,
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 3.84,
-		elevation: 5,
 	},
 	stopButton: {
 		backgroundColor: BASE_COLORS.accent,
 	},
-	buttonText: {
-		color: "white",
-		fontSize: 18,
-		fontWeight: "bold",
-		textAlign: "center",
-	},
 	backButton: {
 		marginTop: 20,
-		paddingVertical: 10,
-		paddingHorizontal: 20,
-	},
-	backButtonText: {
-		color: BASE_COLORS.text,
-		fontSize: 16,
-		textAlign: "center",
 	},
 	errorText: {
 		color: "red",

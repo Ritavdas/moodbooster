@@ -42,7 +42,7 @@
 
 ### Tech
 - React Native + TypeScript + Expo Router
-- NativeWind + shadcn/ui (optional for styling)
+- NativeWind + React Native Paper - UI Components
 - Deepgram API (Voice to Text)
 - GPT-4o API (Therapist Sentiment Analysis and Responses)
 - Lottie Animations (background animations)
